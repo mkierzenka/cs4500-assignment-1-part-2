@@ -4,102 +4,115 @@
 #include "string.h"  // Your file with the String class
 #include "map.h"
  
-void FAIL() {   exit(1);    }
-void OK(const char* m) { std::cout << "OK: " << m << '\n'; }
-void t_true(bool p) { if (!p) FAIL(); }
-void t_false(bool p) { if (p) FAIL(); }
+// This test class was added to allow for easier testing
+class Test {
+public:
+  String* s;
+  String* t;
+  Test() {
+    s = new String("Hello");
+    t = new String("World");
+  }
 
-void test_string() {
-  String * s = new String("Hello");
-  String * t = new String("World");
-  String * w = new String("Hello");
-  String * u = s->concat(t);
-  t_true(s->equals(s));
-  t_false(s->equals(t));
-  t_false(s->equals(u));
-  t_true(s->equals(w));
-  t_true(u->equals(new String("HelloWorld")));
-  s->concat_char('o');
-  t_true(s->equals(new String("Helloo")));
-  t_true(s->length == 6);
+  ~Test() {
+    delete s;
+    delete t;
+  }
 
-  OK("test_string");
-}
+  void FAIL() {   exit(1);    }
+  void OK(const char* m) { std::cout << "OK: " << m << '\n'; }
+  void t_true(bool p) { if (!p) FAIL(); }
+  void t_false(bool p) { if (p) FAIL(); }
 
-void test_replace_1() {
-  String * s = new String("Hello");
-  String * t = new String("World");
-  String * u = s->concat(t);
-  MapStrStr * mss = new MapStrStr();
-  mss->put(s, t);
-  t_true(t->equals(mss->get(s)));
-  mss->replace(s, u);
-  t_true(u->equals(mss->get(s)));
-  t_true(mss->size() == 1);
+  void test_string() {
+    String * w = new String("Hello");
+    String * u = s->concat(t);
+    t_true(s->equals(s));
+    t_false(s->equals(t));
+    t_false(s->equals(u));
+    t_true(s->equals(w));
+    t_true(u->equals(new String("HelloWorld")));
+    w->concat_char('o');
+    t_true(w->equals(new String("Helloo")));
+    t_true(w->length == 6);
+    delete w;
+    delete u;
+    OK("test_string");
+  }
 
-  OK("test_replace_1");
-}
+  void test_replace_1() {
+    String * u = s->concat(t);
+    MapStrStr * mss = new MapStrStr();
+    mss->put(s, t);
+    t_true(t->equals(mss->get(s)));
+    mss->put(s, u);
+    t_true(u->equals(mss->get(s)));
+    t_true(mss->size() == 1);
+    delete u;
+    delete mss;
+    OK("test_replace_1");
+  }
 
-void test_replace_2() {
-  String * s = new String("Hello");
-  Object * t = new String("World");
-  Object * u = new String("hi");
-  MapStrObj * mss = new MapStrObj();
-  mss->put(s, t);
-  t_true(t->equals(mss->get(s)));
-  mss->replace(s, u);
-  t_true(u->equals(mss->get(s)));
-  t_true(mss->size() == 1);
+  void test_replace_2() {
+    Object * u = new String("hi");
+    MapStrObj * mss = new MapStrObj();
+    mss->put(s, t);
+    t_true(t->equals(mss->get(s)));
+    mss->put(s, u);
+    t_true(u->equals(mss->get(s)));
+    t_true(mss->size() == 1);
+    delete u;
+    delete mss;
+    OK("test_replace_2");
+  }
 
-  OK("test_replace_2");
-}
+  void test_remove_1() {
+    Object * u = new String("hi");
+    String * w = new String("w");
+    MapStrObj * mss = new MapStrObj();
+    mss->put(s, t);
+    mss->put(w, u);
+    t_true(mss->size() == 2);
+    t_true(mss->contains_key(s));
+    t_true(mss->contains_key(w));
+    Object * q = mss->remove(s);
+    t_true(t->equals(q));
+    t_false(mss->contains_key(s));
+    t_true(mss->size() == 1);
+    delete u;
+    delete w;
+    delete mss;
+    OK("test_remove_1");
+  }
 
-void test_remove_1() {
-  String * s = new String("Hello");
-  Object * t = new String("World");
-  Object * u = new String("hi");
-  String * w = new String("w");
-  MapStrObj * mss = new MapStrObj();
-  mss->put(s, t);
-  mss->put(w, u);
-  t_true(mss->size() == 2);
-  t_true(mss->contains_key(s));
-  t_true(mss->contains_key(w));
-  Object * q = mss->remove(s);
-  t_true(t->equals(q));
-  t_false(mss->contains_key(s));
-  t_true(mss->size() == 1);
-
-  OK("test_remove_1");
-}
-
-void test_remove_2() {
-  String * s = new String("Hello");
-  String * t = new String("World");
-  String * u = s->concat(t);
-  String * w = new String("w");
-  MapStrStr * mss = new MapStrStr();
-  mss->put(s, t);
-  mss->put(w, u);
-  t_true(mss->size() == 2);
-  t_true(mss->contains_key(s));
-  t_true(mss->contains_key(w));
-  t_false(mss->contains_key(t));
-  String * q = mss->remove(s);
-  t_true(t->equals(q));
-  t_false(mss->contains_key(s));
-  t_true(mss->size() == 1);
-
-  OK("test_remove_2");
-}
+  void test_remove_2() {
+    String * u = s->concat(t);
+    String * w = new String("w");
+    MapStrStr * mss = new MapStrStr();
+    mss->put(s, t);
+    mss->put(w, u);
+    t_true(mss->size() == 2);
+    t_true(mss->contains_key(s));
+    t_true(mss->contains_key(w));
+    t_false(mss->contains_key(t));
+    String * q = mss->remove(s);
+    t_true(t->equals(q));
+    t_false(mss->contains_key(s));
+    t_true(mss->size() == 1);
+    delete u;
+    delete w;
+    OK("test_remove_2");
+  }
+};
 
 int main(int argc, char** argv) {
-  test_string();
-  test_replace_1();
-  test_replace_2();
-  test_remove_1();
-  test_remove_2();
-  
+  Test* test = new Test();
+  test->test_string();
+  test->test_replace_1();
+  test->test_replace_2();
+  test->test_remove_1();
+  test->test_remove_2();
+  delete test;
   return 0;
 }
 

@@ -4,7 +4,9 @@
 #include "string.h"
 
 /**
- * Represents a map where elements are mapped from key to value. Map inherits properties from Object 
+ * Represents a map where elements are mapped from key to value. A map can return its value by key
+ * at O(1) time because each key is unique and grabbed by index, there are no duplicate keys.
+ * Map inherits properties from Object 
  */
 class Map : public Object {
     public:
@@ -35,6 +37,7 @@ class Map : public Object {
 
 /** 
  * Represents a map where the key is a string and the value is a object. Inherits from map.
+ * Example: { "string_list: new StrList("hi", "bye"), "string": new String("hello") }
  */
 class MapStrObj : public Map {
     public:
@@ -50,9 +53,11 @@ class MapStrObj : public Map {
     ~MapStrObj();
 
     /**
-     * Adds a mapping from key to val to the map.
-     * @param key key
-     * @param val value
+     * Adds a mapping from key to val to the map. A key must be unique, if there is already a key
+     * of the same value in the map, the value will be overwritten by the new value.
+     * 
+     * @param key unique string key
+     * @param val object value
      */
     void put(String* key, Object* val);
     
@@ -69,13 +74,6 @@ class MapStrObj : public Map {
      * @return value that was removed
      */
     Object* remove(String* key);
-
-    /**
-     * Replace the value at the key with the given value.
-     * @param key key of value to replace
-     * @param val new value
-     */
-    void replace(String* key, Object* val);
 
     /**
      * Determines if the map contains the given key.
@@ -99,6 +97,7 @@ class MapStrObj : public Map {
 
 /** 
  * Represents a map where the key is a string and the value is a string. Inherits from map.
+ * NOTE: Keys cannot be duplicate and must be unique.
  */
 class MapStrStr : public Map {
     public:
@@ -114,17 +113,19 @@ class MapStrStr : public Map {
     ~MapStrStr();
 
     /**
-     * Adds a mapping from key to val to the map.
-     * @param key key
-     * @param val value
+     * Adds a mapping from key to val to the map. A key must be unique, if there is already a key
+     * of the same value in the map, the value will be overwritten by the new value.
+     * 
+     * @param key unique string key
+     * @param val string value
      */
     void put(String* key, String* val);
-
-     /**
+    
+    /**
      * Returns the object that the key maps to.
      * @param key key
      * @return value key maps to
-     */   
+     */
     String* get(String* key);
 
     /**
@@ -133,13 +134,6 @@ class MapStrStr : public Map {
      * @return value that was removed
      */
     String* remove(String* key);
-
-    /**
-     * Replace the value at the key with the given value.
-     * @param key key of value to replace
-     * @param val new value
-     */
-    void replace(String* key, String* val);
 
     /**
      * Determines if the map contains the given key.
@@ -152,7 +146,7 @@ class MapStrStr : public Map {
      * Returns a list of keys in the map.
      * @return list of keys
      */
-    String* get_keys();
+    String** get_keys();
 
     /**
      * Returns a list of values in the map.
