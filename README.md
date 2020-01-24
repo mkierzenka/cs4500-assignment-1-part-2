@@ -1,6 +1,6 @@
 # cs4500-assignment-1-part-2
 By Kaylin Devchand & Cristian Stransky
-
+```
 Outline:
     Object:
         size_t hash()
@@ -30,7 +30,7 @@ Outline:
             bool contains_key(String* key)
             String** get_keys()
             String** get_values()  
-
+```
 ## Object
 
 Each and every object will have a hash code of some kind to allow for all objects to be manipulated  
@@ -50,16 +50,18 @@ allocation/deallocation than if the concatenate functions were returning a new s
 mutating the string.   
 
 The functions get_char, set_char, and length are to be used for for loop manipulation. Being able to  
-manupliate seperate characters may be helpful.
+manipulate separate characters may be helpful.
 
 The function replace is mainly used for a more robust method of being able to manipulate strings,  
 instead of only using characters. Using the function replace multiple times can remove all spaces in  
 a string for example:  
+```
 while(!has_no_spaces(string)) {  
     string->replace(" ", "")  
 }  
+```
 Or it can be used if the user wishes to check for strings with relation to each other,   
-like: string->replace("\r\n", "  ").  
+like: ```string->replace("\r\n", "  ").  ```
 
 ## Map
 

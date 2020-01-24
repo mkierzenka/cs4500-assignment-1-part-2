@@ -26,22 +26,24 @@ public:
 
   void test_string() {
     String * w = new String("Hello");
-    String * u = s->concat(t);
+    s->concat(t);
+    String * u = new String("HelloWorld");
     t_true(s->equals(s));
     t_false(s->equals(t));
-    t_false(s->equals(u));
-    t_true(s->equals(w));
+    t_true(s->equals(u));
+    t_false(s->equals(w));
     t_true(u->equals(new String("HelloWorld")));
     w->concat_char('o');
     t_true(w->equals(new String("Helloo")));
-    t_true(w->length == 6);
+    t_true(w->length() == 6);
     delete w;
     delete u;
     OK("test_string");
   }
 
   void test_replace_1() {
-    String * u = s->concat(t);
+    s->concat(t);
+    String * u = new String("HelloWorld");
     MapStrStr * mss = new MapStrStr();
     mss->put(s, t);
     t_true(t->equals(mss->get(s)));
@@ -86,7 +88,8 @@ public:
   }
 
   void test_remove_2() {
-    String * u = s->concat(t);
+    String * u = new String("HelloWorld");
+    s->concat(t);
     String * w = new String("w");
     MapStrStr * mss = new MapStrStr();
     mss->put(s, t);
@@ -103,6 +106,46 @@ public:
     delete w;
     OK("test_remove_2");
   }
+
+  void test_get_1() {
+    String * u = new String("HelloWorld");
+    s->concat(t);
+    String * w = new String("w");
+    MapStrStr * mss = new MapStrStr();
+    mss->put(s, t);
+
+    String** keys = mss->get_keys();
+    String** values = mss->get_values();
+    t_true(t->equals(values[0]));
+    t_true(s->equals(keys[0]));
+
+    delete u;
+    delete w;
+    delete mss;
+    delete[] keys;
+    delete[] values;
+
+    OK("test_get_1");
+  }
+
+  void test_get_2() {
+    Object * u = new String("hi");
+    String * w = new String("w");
+    MapStrObj * mss = new MapStrObj();
+    mss->put(s, t);
+
+    String** keys = mss->get_keys();
+    Object** values = mss->get_values();
+    t_true(t->equals(values[0]));
+    t_true(s->equals(keys[0]));
+
+    delete u;
+    delete w;
+    delete mss;
+    delete keys;
+    delete values;
+    OK("test_get_2");
+  }
 };
 
 int main(int argc, char** argv) {
@@ -112,6 +155,8 @@ int main(int argc, char** argv) {
   test->test_replace_2();
   test->test_remove_1();
   test->test_remove_2();
+  test->test_get_1();
+  test->test_get_2();
   delete test;
   return 0;
 }
