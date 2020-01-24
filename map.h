@@ -88,7 +88,13 @@ class MapStrObj : public Map {
      * Returns a list of keys in the map.
      * @return list of keys
      */
-    String* get_keys();
+    String** get_keys();
+
+    /**
+     * Returns a list of values in the map.
+     * @return list of values
+     */
+    Object** get_values();
 };
 
 /** 
@@ -147,4 +153,10 @@ class MapStrStr : public Map {
      * @return list of keys
      */
     String* get_keys();
+
+    /**
+     * Returns a list of values in the map.
+     * @return list of values
+     */
+    String** get_values();
 };
