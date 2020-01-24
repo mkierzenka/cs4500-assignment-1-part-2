@@ -2,89 +2,75 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "helper.h"
 
+/**
+ * Represents a string. Strings inherit properties from objects.
+ */
 class String : public Object { 
 public:
-    char* val_; // owned
-    size_t size_;
+    /**
+     * @brief Constructor.
+     */
+    String();
 
-    String() {
-        size_ = 0;
-        val_ = nullptr;
-    }
+    /**
+     * @brief Constructor
+     * @param c character to initialize string with.
+     */
+    String(char c);
 
-    String(char c) {
-        size_ = 1;
-        val_ = new char[size_];
-        val_[0] = c;
-        val_[size_] = '\0';
-    }
-
-    String(char* c) {
-        size_ = strlen(c);
-        val_ = new char[size_];
-        for (size_t i=0; i < size_; i++) {
-            val_[i] = c[i];
-        }
-        val_[size_] = '\0';
-    }
+    /**
+     * @brief Constructor
+     * @param c list of characters to initialize string with.
+     */
+    String(char* c);
     
-    String(const char* c) {
-        size_ = strlen(c);
-        val_ = new char[size_];
-        for (size_t i=0; i < size_; i++) {
-            val_[i] = c[i];
-        }
-        val_[size_] = '\0';
-    }
+    /**
+     * @brief Constructor
+     * @param c list of characters to initialize string with.
+     */
+    String(const char* c);
 
-    ~String() {
-        delete[] val_;
-    }
+    /**
+     * @brief Deconstructor
+     */
+    ~String();
 
-    size_t hash() {
-        size_t res = 0;
-        for(size_t ii = 0; ii < size_; ii++) {
-            res += val_[ii];
-        }
-        return res;
-    }
+    /**
+     * @brief Calculates the hash of the string.
+     * @return the hash
+     */
+    size_t hash();
 
-    bool equals(Object* other) {
-        if (other == nullptr) return false;
-        String* s = dynamic_cast<String*>(other);
-        if (s == nullptr) return false;
+    /**
+     * @brief Determines if this string and the given object are equal.
+     * @param other object to compare to
+     * @return equal or not
+     */
+    bool equals(Object* other);
 
-        return strcmp(val_, s->val_) == 0;
-    }
-
-    String* concat(String* s) {
-        char* temp_string = new char[size_ + s->size_];
-        strcpy(temp_string, val_);
-        strcat(temp_string, s->val_);
-        return new String(temp_string);
-    }
+    /**
+     * @brief Creates a new string where the first part is this string and the second is the given 
+     * string
+     * @param s string to concat to this string
+     * @return new string that made of both strings
+     */
+    String* concat(String* s);
     
-    void concat_char(char c) {
-        char* temp_string = new char[size_ + 1];
-        for (size_t ii = 0; ii < size_; ii++) {
-            temp_string[ii] = val_[ii];
-        }
-        temp_string[size_] = c;
-        temp_string[size_ + 1] = '\0';
-        delete[] val_;
-        val_ = temp_string;
-        size_++;
-    }
+    /**
+     * @brief Adds the char to the end of this string
+     * @param the character to append
+     */
+    void concat_char(char c);
 
-    size_t size() {
-        return size_;
-    }
+    /**
+     * @brief Calculates the length of this string.
+     * @return length of this string
+     */
+    size_t length();
 
-    void print() {
-        Cout * c = new Cout();
-        c->pln(val_);
-        delete c;
-    }
+    /**
+     * @brief Prints a representation of this string to the console
+     */
+    void print();
 };

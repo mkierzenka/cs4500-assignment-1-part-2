@@ -2,35 +2,37 @@
 // lang::CwC
 
 #include <stdlib.h>
-#include "helper.h"
 
+/**
+ * Represents an object. 
+ */ 
 class Object {
 public:
-	size_t hash_;
+	/**
+	 * @brief Constructor
+	 */
+	Object();
 
-	Object() { 
-		hash_ = 0; 
-	}
+	/**
+	 * @brief Deconstructor
+	 */
+	virtual ~Object();
 
-	virtual ~Object() {}
+	/**
+	 * @brief Calculates the hash of the object.
+	 * @return hash
+	 */
+	virtual size_t hash();
 
-	size_t get_hash() {
-		if (hash_ == 0)
-			hash_ = hash(); ///Compute the hash
-		return hash_;
-	}
+	/**
+	 * @brief Determines if the objects are equal.
+	 * @param other object to compare to
+	 * @return equal or not
+	 */
+	virtual bool equals(Object* other);
 
-	virtual size_t hash() {
-		return reinterpret_cast<size_t>(this);
-	}
-
-	virtual bool equals(Object* other) {
-		return this == other;
-	}
-
-	virtual void print() {
-		Cout* c = new Cout();
-        c->pln(hash_);
-        delete c;
-	}
+	/**
+	 * @brief Prints a representation of the object to console.
+	 */
+	virtual void print();
 };
