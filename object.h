@@ -20,7 +20,7 @@ public:
 
 	/**
 	 * @brief Calculates the hash of the object.
-	 * @return hash
+	 * @return hash value of the object
 	 */
 	virtual size_t hash();
 
