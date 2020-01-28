@@ -11,6 +11,18 @@
 class Map : public Object {
     public:
     /**
+     * @brief Construct a new Map object
+     * 
+     */
+    Map();
+
+    /**
+     * @brief Destroy the Map object
+     * 
+     */
+    ~Map();
+
+    /**
      * @brief Determines if this map equals the given object.
      * @param other object to compare to
      * @return equals or not
