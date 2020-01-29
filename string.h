@@ -51,7 +51,7 @@ public:
      * this_string + other_string = returned_string (order is important)
      * @param s string to concat to this string
      */
-    String concat(String* s);
+    String* concat(String* s);
 
     /**
      * @brief Calculates the length of this string.
