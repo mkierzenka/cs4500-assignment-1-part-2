@@ -17,6 +17,12 @@ class Map : public Object {
     Map();
 
     /**
+     * Constructor to optimize performance of map.
+     * @param capacity number of buckets available to store different values.
+     */
+    Map(size_t capacity);
+
+    /**
      * @brief Destroy the Map object
      * 
      */
@@ -58,6 +64,12 @@ class MapStrObj : public Map {
      * Constructor
      */
     MapStrObj();
+
+    /**
+     * Constructor to tailor performance of map.
+     * @param capacity number of buckets available to store different values.
+     */
+    MapStrObj(size_t capacity);
 
     /**
      * Deconstructor
@@ -118,6 +130,12 @@ class MapStrStr : public Map {
      * Constructor
      */
     MapStrStr();
+
+    /**
+     * Constructor to optimize performance of map.
+     * @param capacity number of buckets available to store different values.
+     */
+    MapStrStr(size_t capacity);
 
     /**
      * Deconstructor
