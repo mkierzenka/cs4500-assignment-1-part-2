@@ -32,16 +32,11 @@ public:
     Object * b = new Object();
     Map * mss = new Map();
     mss->put(s, t);
-<<<<<<< HEAD
     Object * e = mss->put(a, b);
-=======
-    mss->put(a, b);
->>>>>>> 0b5397152b2b5e4d808bb06833c228b913efb47e
     t_true(mss->size() == 2);
     t_true(mss->contains_key(s));
     t_true(mss->contains_key(a));
     t_true(mss->get(a)->equals(b));
-<<<<<<< HEAD
     t_true(e == nullptr);
 
     Object * c = new Object();
@@ -107,18 +102,6 @@ public:
     OK("test_put_2");
   }
 
-=======
-
-    Object * c = new Object();
-    Object * d = mss->put(a, c);
-    t_false(mss->get(a)->equals(b));
-    t_true(mss->get(a)->equals(c));
-    t_true(d->equals(b));
-
-    OK("test_put_0");
-  }
-
->>>>>>> 0b5397152b2b5e4d808bb06833c228b913efb47e
   void test_remove_0() {
     Object * a = new Object();
     Object * b = new Object();
@@ -296,6 +279,8 @@ public:
 int main(int argc, char** argv) {
   Test* test = new Test();
   test->test_put_0();
+  test->test_put_1();
+  test->test_put_2();
   test->test_remove_0();
   test->test_remove_1();
   test->test_remove_2();
