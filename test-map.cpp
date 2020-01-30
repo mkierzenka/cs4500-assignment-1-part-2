@@ -3,12 +3,14 @@
 #include "object.h"  // Your file with the CwC declaration of Object
 #include "string.h"  // Your file with the String class
 #include "map.h"
+#include <assert.h>
  
 // This test class was added to allow for easier testing
 class Test {
 public:
   String* s;
   String* t;
+
   Test() {
     s = new String("Hello");
     t = new String("World");
