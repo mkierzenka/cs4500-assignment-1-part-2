@@ -273,6 +273,26 @@ public:
   }
 };
 
+void test_hash_1() {
+  MapStrObj m1 = new MapStrObj();
+  MapStrObj m2 = new MapStrObj();
+  Object * a = new Object();
+  String * s = new String("s");
+
+  t_true(m1->hash() == m2->hash());
+  m1->put(s, a);
+  t_false(m1->hash() == m2->hash());
+  m2->put(s, a);
+  t_true(m1->hash() == m2->hash());
+
+  delete m1;
+  delete m2;
+  delete a;
+  delete s;
+
+  OK("test_hash_1");
+}
+
 int main(int argc, char** argv) {
   Test* test = new Test();
   test->test_put_0();
@@ -286,6 +306,7 @@ int main(int argc, char** argv) {
   test->test_get_2();
   test->test_equals_0();
   test->test_contain_keys_0();
+  test->test_hash_1();
   delete test;
   return 0;
 }
