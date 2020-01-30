@@ -11,6 +11,24 @@
 class Map : public Object {
     public:
     /**
+     * @brief Construct a new Map object
+     * 
+     */
+    Map();
+
+    /**
+     * Constructor to optimize performance of map.
+     * @param capacity number of buckets available to store different values.
+     */
+    Map(size_t capacity);
+
+    /**
+     * @brief Destroy the Map object
+     * 
+     */
+    ~Map();
+
+    /**
      * @brief Determines if this map equals the given object.
      * @param other object to compare to
      * @return equals or not
@@ -46,6 +64,12 @@ class MapStrObj : public Map {
      * Constructor
      */
     MapStrObj();
+
+    /**
+     * Constructor to tailor performance of map.
+     * @param capacity number of buckets available to store different values.
+     */
+    MapStrObj(size_t capacity);
 
     /**
      * Deconstructor
@@ -106,6 +130,12 @@ class MapStrStr : public Map {
      * Constructor
      */
     MapStrStr();
+
+    /**
+     * Constructor to optimize performance of map.
+     * @param capacity number of buckets available to store different values.
+     */
+    MapStrStr(size_t capacity);
 
     /**
      * Deconstructor
