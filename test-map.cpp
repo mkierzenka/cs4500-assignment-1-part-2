@@ -27,27 +27,82 @@ public:
   void t_true(bool p) { if (!p) FAIL(); }
   void t_false(bool p) { if (p) FAIL(); }
 
-    void test_put_0() {
-      Object * a = new Object();
-      Object * b = new Object();
-      Map * mss = new Map();
-      mss->put(s, t);
-      mss->put(a, b);
-      t_true(mss->size() == 2);
-      t_true(mss->contains_key(s));
-      t_true(mss->contains_key(a));
-      t_true(mss->get(a)->equals(b));
+  void test_put_0() {
+    Object * a = new Object();
+    Object * b = new Object();
+    Map * mss = new Map();
+    mss->put(s, t);
+    Object * e = mss->put(a, b);
+    t_true(mss->size() == 2);
+    t_true(mss->contains_key(s));
+    t_true(mss->contains_key(a));
+    t_true(mss->get(a)->equals(b));
+    t_true(e == nullptr);
 
-      Object * c = new Object();
-      Object * d = mss->put(a, c);
-      t_true(mss->get(a)->equals(c));
-      t_true(d->equals(b));
+    Object * c = new Object();
+    Object * d = mss->put(a, c);
+    t_true(mss->get(a)->equals(c));
+    t_true(d->equals(b));
 
-      OK("test_put_0");
+    delete a;
+    delete b;
+    delete mss;
+    delete c;
 
-    }
+    OK("test_put_0");
+  }
 
-    void test_remove_0() {
+  void test_put_1() {
+    Object * a = new Object();
+    Object * b = new Object();
+    MapStrObj * mss = new Map();
+    mss->put(s, a);
+    Object * e = mss->put(t, b);
+    t_true(mss->size() == 2);
+    t_true(mss->contains_key(s));
+    t_true(mss->contains_key(t));
+    t_true(mss->get(t)->equals(b));
+    t_true(e == nullptr);
+
+    Object * c = new Object();
+    Object * d = mss->put(s, c);
+    t_true(mss->get(s)->equals(c));
+    t_true(d->equals(a));
+
+    delete a;
+    delete b;
+    delete mss;
+    delete b;
+
+    OK("test_put_1");
+  }
+
+  void test_put_2() {
+    String * a = new String("a");
+    String * b = new String("b");
+    MapStrStr * mss = new MapStrStr();
+    mss->put(s, t);
+    String * e = mss->put(a, b);
+    t_true(mss->size() == 2);
+    t_true(mss->contains_key(s));
+    t_true(mss->contains_key(a));
+    t_true(mss->get(a)->equals(b));
+    t_true(e == nullptr);
+
+    String * c = new String("c");
+    String * d = mss->put(a, c);
+    t_true(mss->get(a)->equals(c));
+    t_true(d->equals(b));
+
+    delete a;
+    delete b;
+    delete mss;
+    delete c;
+
+    OK("test_put_2");
+  }
+
+  void test_remove_0() {
     Object * a = new Object();
     Object * b = new Object();
     Map * mss = new Map();
