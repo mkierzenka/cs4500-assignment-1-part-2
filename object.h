@@ -1,38 +1,27 @@
+//lang::CwC
 #pragma once
-// lang::CwC
 
-#include <stdlib.h>
+#include <cstdlib>
 
 /**
- * Represents an object. 
- */ 
+ * A class that represents the top of the object hierarchy.
+ * author: chasebish */
 class Object {
 public:
-	/**
-	 * @brief Constructor
-	 */
-	Object();
+  /** CONSTRUCTORS & DESTRUCTORS **/
 
-	/**
-	 * @brief Deconstructor
-	 */
-	virtual ~Object();
+  /* Default Object constructor */
+  Object();
 
-	/**
-	 * @brief Calculates the hash of the object.
-	 * @return hash value of the object
-	 */
-	virtual size_t hash();
+  /* Default Object destructor, to be overriden by subclasses */
+  virtual ~Object();
 
-	/**
-	 * @brief Determines if the objects are equal.
-	 * @param other object to compare to
-	 * @return equal or not
-	 */
-	virtual bool equals(Object* other);
 
-	/**
-	 * @brief Prints a representation of the object to console.
-	 */
-	virtual void print();
+  /** VIRTUAL METHODS **/
+
+  /* Returns whether two objects are equal, to be overriden by subclasses */
+  virtual bool equals(Object* const obj);
+
+  /* Returns an object's hash value. Identical objects should have identical hashes */
+  virtual size_t hash();
 };
