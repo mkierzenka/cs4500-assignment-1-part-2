@@ -3,12 +3,14 @@
 #include "object.h"  // Your file with the CwC declaration of Object
 #include "string.h"  // Your file with the String class
 #include "map.h"
+#include <assert.h>
  
 // This test class was added to allow for easier testing
 class Test {
 public:
   String* s;
   String* t;
+
   Test() {
     s = new String("Hello");
     t = new String("World");
@@ -24,25 +26,7 @@ public:
   void t_true(bool p) { if (!p) FAIL(); }
   void t_false(bool p) { if (p) FAIL(); }
 
-  void test_string() {
-    String * w = new String("Hello");
-    s->concat(t);
-    String * u = new String("HelloWorld");
-    t_true(s->equals(s));
-    t_false(s->equals(t));
-    t_true(s->equals(u));
-    t_false(s->equals(w));
-    t_true(u->equals(new String("HelloWorld")));
-    w->concat_char('o');
-    t_true(w->equals(new String("Helloo")));
-    t_true(w->length() == 6);
-    delete w;
-    delete u;
-    OK("test_string");
-  }
-
   void test_replace_1() {
-    s->concat(t);
     String * u = new String("HelloWorld");
     MapStrStr * mss = new MapStrStr();
     mss->put(s, t);
@@ -150,7 +134,6 @@ public:
 
 int main(int argc, char** argv) {
   Test* test = new Test();
-  test->test_string();
   test->test_replace_1();
   test->test_replace_2();
   test->test_remove_1();
