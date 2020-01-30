@@ -99,12 +99,14 @@ class Map : public Object {
 
     /**
      * Returns an Array object of keys
+     * NOTE: If a map has no keys, it will return an empty Array
      * @return Array of keys
      */
     virtual Array* get_keys();
 
     /**
      * Returns an Array object of values
+     * NOTE: If a map has no values, it will return an empty Array
      * @return Array of values
      */
     virtual Array* get_values();  
