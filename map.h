@@ -45,9 +45,19 @@ class Map : public Object {
     virtual bool equals(Object* other);
 
     /**
-     * @brief Calculates the hash of the map. 
+     * @brief Calculates the hash of the map. The hash will only be dependent on the key value pairs
+     * of the map, and NOT the location of them in the buckets.
+     * Example:
+     * Map* map1 = new Map(10000);
+     * Map* map2 = new Map();
+     * Object* key = new Object();
+     * Object* value = new Object();
+     * map1->put(key, value);
+     * map2->put(key, value);
+     * // This should return true even though the key value pairs are in different bucket locations
+     * map1->hash() == map2->hash(); 
      * 
-     * @return hash
+     * @return hash representation of each key value pair in the map
      */
     virtual size_t hash();
 
@@ -99,12 +109,14 @@ class Map : public Object {
 
     /**
      * Returns an Array object of keys
+     * NOTE: If a map has no keys, it will return an empty Array
      * @return Array of keys
      */
     virtual Array* get_keys();
 
     /**
      * Returns an Array object of values
+     * NOTE: If a map has no values, it will return an empty Array
      * @return Array of values
      */
     virtual Array* get_values();  
