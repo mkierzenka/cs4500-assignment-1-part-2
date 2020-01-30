@@ -271,6 +271,19 @@ public:
     delete str_obj_map;
     OK("test_contains_keys_0");
   }
+
+  void test_hash_0() {
+    Map* map = new Map();
+    MapStrStr* string_map = new MapStrStr();
+    map->put(s, t);
+    string_map->put(s, t);
+    t_true(map->hash() == string_map->hash());
+    map->put(t, s);
+    t_true(map->hash() != string_map->hash());
+    delete map;
+    delete string_map;
+    OK("test_hash_0");
+  }
 };
 
 void test_hash_1() {
@@ -306,6 +319,7 @@ int main(int argc, char** argv) {
   test->test_get_2();
   test->test_equals_0();
   test->test_contain_keys_0();
+  test->test_hash_0();
   test->test_hash_1();
   delete test;
   return 0;
