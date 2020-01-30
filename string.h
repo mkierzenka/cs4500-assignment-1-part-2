@@ -1,72 +1,49 @@
+//lang::CwC
 #pragma once
 
-#include <stdio.h>
-#include <string.h>
+#include "object.h"
+#include <cstdlib>
+#include <cstring>
+#include <cstdio> 
 
 /**
- * Represents a string, usually characterized as characters in quotes, ex: "hello".
- * Strings inherit properties from objects.
- */
-class String : public Object { 
+ * An immutable String class representing a char*
+ * author: chasebish */
+class String : public Object {
 public:
-    /**
-     * @brief Constructor.
-     */
-    String();
+  /** CONSTRUCTORS & DESTRUCTORS **/
 
-    /**
-     * @brief Constructor
-     * @param c list of characters to initialize string with.
-     */
-    String(char* c);
-    
-    /**
-     * @brief Constructor
-     * @param c list of characters to initialize string with.
-     * 
-     * NOTE: Mainly used for character arrays determined by the progammer, ex: new String("hello")
-     */
-    String(const char* c);
+  /* Creates a String copying s */
+  String(const char* s);
 
-    /**
-     * @brief Deconstructor
-     */
-    ~String();
+  /* Copies a String copying the value from s */
+  String(String* const s);
 
-    /**
-     * @brief Calculates the hash of the string.
-     * @return the hash value
-     */
-    size_t hash();
+  /* Clears String from memory */
+  ~String();
 
-    /**
-     * @brief Determines if this string and the given object are equal.
-     * @param other object to compare to
-     * @return equal or not
-     */
-    bool equals(Object* other);
 
-    /**
-     * @brief Creates a new string using this current string and another string, concatenates as
-     * this_string + other_string = returned_string (order is important)
-     * @param s string to concat to this string
-     */
-    String* concat(String* s);
+  /** INHERITED METHODS **/
 
-    /**
-     * @brief Calculates the length of this string.
-     * @return length of this string
-     */
-    size_t size();
+  /* Inherited from Object, generates a hash for a String */
+  size_t hash();
 
-    /**
-     * Returns 0 if strings equal, >0 if this string greater,
-     * <0 if this string less
-     */
-    int compare(String* o);
+  /* Inherited from Object, checks equality between an String and an Object */
+  bool equals(Object* const obj);
 
-    /**
-     * @brief Prints a representation of this string to the console
-     */
-    void print();
+
+  /** STRING METHODS **/
+  
+  /** Compares strings based on alphabetical order
+   * < 0 -> this String is less than String s
+   * = 0 -> this String is equal to String s
+   * > 0 -> this String is greater than String s
+   */
+  int cmp(String* const s);
+
+  /* Creates a new String by combining two existing Strings */
+  String* concat(String* const s);
+
+  /* Returns the current length of the String */
+  size_t size();
 };
