@@ -102,16 +102,16 @@ class Map : public Object {
     bool contains_key(Object* key);
 
     /**
-     * Returns an Array object of keys
-     * NOTE: If a map has no keys, it will return an empty Array
-     * @return Array of keys
+     * Returns a new Object array of keys. This array will need to be freed in memory after use.
+     * NOTE: If a map has no keys, it will return an empty Object**
+     * @return new Object array of keys
      */
     virtual Object** get_keys();
 
     /**
-     * Returns an Array object of values
-     * NOTE: If a map has no values, it will return an empty Array
-     * @return Array of values
+     * Returns a new Object array of values. This array will need to be freed in memory after use.
+     * NOTE: If a map has no values, it will return an empty Object**
+     * @return new Object array of values
      */
     virtual Object** get_values();  
 };
