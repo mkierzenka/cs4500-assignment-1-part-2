@@ -2,7 +2,6 @@
 
 #include "object.h"
 #include "string.h"
-#include "array.h" // This file will have to be provided yourself
 
 /**
  * Represents a map where elements are mapped from key to value. A map can return its value by key
@@ -107,14 +106,14 @@ class Map : public Object {
      * NOTE: If a map has no keys, it will return an empty Array
      * @return Array of keys
      */
-    virtual Array* get_keys();
+    virtual Object** get_keys();
 
     /**
      * Returns an Array object of values
      * NOTE: If a map has no values, it will return an empty Array
      * @return Array of values
      */
-    virtual Array* get_values();  
+    virtual Object** get_values();  
 };
 
 /** 
