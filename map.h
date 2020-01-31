@@ -62,11 +62,6 @@ class Map : public Object {
     virtual size_t hash();
 
     /**
-     * @brief Prints a representation of map to the console.
-     */
-    virtual void print();
-
-    /**
      * @brief Determines the number of mappings in this map.
      * @return size of map
      */
