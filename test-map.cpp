@@ -72,7 +72,7 @@ public:
     delete a;
     delete b;
     delete mss;
-    delete b;
+    delete c;
 
     OK("test_put_1");
   }
@@ -156,6 +156,7 @@ public:
     t_true(mss->size() == 1);
     delete u;
     delete w;
+    delete mss;
     OK("test_remove_2");
   }
 
