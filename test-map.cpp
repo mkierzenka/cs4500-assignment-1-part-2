@@ -156,6 +156,7 @@ public:
     t_true(mss->size() == 1);
     delete u;
     delete w;
+    delete mss;
     OK("test_remove_2");
   }
 
