@@ -156,6 +156,7 @@ public:
     t_true(mss->size() == 1);
     delete u;
     delete w;
+    delete mss;
     OK("test_remove_2");
   }
 
@@ -165,11 +166,13 @@ public:
     Map * mss = new Map();
     mss->put(a, b);
 
-    Array* keys = mss->get_keys();
-    Array* values = mss->get_values();
-    t_false(keys->equals(values));
+    Object** keys = mss->get_keys();
+    Object** values = mss->get_values();
+    t_false(keys[0]->equals(values[0]));
     t_true(keys != nullptr);
     t_true(values != nullptr);
+    t_true(keys[0]->equals(a));
+    t_true(values[0]->equals(b));
 
     delete a;
     delete b;
@@ -184,11 +187,14 @@ public:
     MapStrStr * mss = new MapStrStr();
     mss->put(s, t);
 
-    Array* keys = mss->get_keys();
-    Array* values = mss->get_values();
-    // Because of the different Array implementations, this is the most thorough test we can do
+    Object** keys = mss->get_keys();
+    Object** values = mss->get_values();
     t_true(keys != nullptr);
     t_true(values != nullptr);
+    t_true(keys[0]->equals(s));
+    t_false(keys[0]->equals(t));
+    t_true(values[0]->equals(t));
+    t_false(values[0]->equals(s));
 
     delete mss;
     delete keys;
@@ -199,15 +205,16 @@ public:
 
   void test_get_2() {
     MapStrObj * mss = new MapStrObj();
-    Array* keys = mss->get_keys();
-    Array* values = mss->get_values();
+    Object** keys = mss->get_keys();
+    Object** values = mss->get_values();
     t_true(keys != nullptr);
     t_true(values != nullptr);
 
     mss->put(s, t);
-    // Because of the different Array implementations, this is the most thorough test we can do
     t_true(keys != nullptr);
     t_true(values != nullptr);
+    t_true(keys[0]->equals(s));
+    t_true(values[0]->equals(t));
 
     mss->remove(s);
     t_true(keys != nullptr);
@@ -304,7 +311,6 @@ public:
 
     OK("test_hash_1");
   }
-
 };
 
 int main(int argc, char** argv) {
